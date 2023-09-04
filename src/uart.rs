@@ -863,6 +863,10 @@ impl<'d> UartTxDriver<'d> {
         }
     }
 
+    /// Wait until the transmitt buffer is fully transmitted.
+    ///
+    /// **Note:** This does not correspond to `uart_flush` in the ESP-IDF,
+    /// but `uart_wait_tx_done`.
     pub fn flush(&mut self) -> Result<(), EspError> {
         esp!(unsafe { uart_wait_tx_done(self.port(), 0) })?;
 
